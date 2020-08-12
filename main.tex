@@ -9,8 +9,34 @@
 %--------------------------------------
 \usepackage[ngerman]{babel}
 
+%---------------------  packages
 \usepackage{pgffor}
+
+\usepackage{paralist}
+\usepackage{caption}
 \usepackage{listings}
+\usepackage{pdfpages}
+%% quellen
+\usepackage{biblatex}
+%% in name.bib sind die Quellen
+\addbibresource{name.bib}
+
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{scrlayer-scrpage, lastpage}
+\usepackage{pdfpages}
+\usepackage[a4paper,margin=2.5cm,left=3cm,footskip=0.5cm]{geometry}
+\setkomafont{pageheadfoot}{\large\textrm}
+\cfoot*{\thepage{}}
+\usepackage{setspace}
+\onehalfspacing
+
+%%---------- Der Pfad der Grafiken
+\graphicspath{ {./images/pdfs/} }
+
+
+
+% ---------Variablen ----------------------------------
 \newcommand{\Name}{Tobias Buck}
 \newcommand{\Strasse}{Am Judensand 7}
 \newcommand{\Ort}{Mainz}
@@ -20,7 +46,7 @@
 \newcommand{\Betreuer}{Jorg \textsc{Schaede}}
 \newcommand{\Thema}{Bundeswettbewerb Informatik 38}
 
-
+%%%------ Enironments and Comands-------------------------------
 \newenvironment{pseudocode}
 {
 \bgroup\obeylines
@@ -108,22 +134,7 @@ Sichtbarkeit & Methoden & Ruckgabe-Typ & Erklarung \\ [0.5ex]
 
 \newcommand{\addMethod}[4]{\centering{\textbf{#1}} & \textit{#2} & #3 &  #4 \\}
 
-
-\usepackage{biblatex}
-\addbibresource{name.bib}
-
-
-
-
-\usepackage{graphicx}
-\usepackage{scrlayer-scrpage, lastpage}
-\usepackage[a4paper,margin=2.5cm,left=3cm,footskip=0.5cm]{geometry}
-\setkomafont{pageheadfoot}{\large\textrm}
-\cfoot*{\thepage{}}
-\usepackage{setspace}
-\onehalfspacing
-
-\graphicspath{ {./images/pdfs/} }
+%%%%%% Beginn Dokument ---------------------------------------------
 
 \begin{document}
 \begin{titlepage}
@@ -162,27 +173,7 @@ Die ausführliche Dokumentation der Aufgaben ist beim BWinf(Bundeswettbewerb Inf
 \newpage
 \subsection{Aufgabe 1}
 \subsubsection{Aufgabenstellung}
-Die Aufgabenstellung befindet sich im Anhang.
-
-\subsubsection{Beschreibung}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Stromrallye_Feld.pdf}
-    
-    \caption{Ein Stromrallye Spielfeld
-    \textit{\textcite{bwinfSpielfeld}
-    }}
-    \label{fig:stromrallye_spiel}
-\end{figure}
-\par
-Bei dieser Aufgabe spielt das Spiel \textbf{Stromrallye} eine entscheidende Rolle.
-In dem Spiel Stromrallye gibt es ein quadratisches Spielfeld mit Feldern.
-Auserdem gibt es einen \textbf{Roboter}, welcher sich nach oben, unten, rechts und links bewegen kann, wenn er einen Schritt geht, verliert seine Batterie Akkuladung.
-Wenn sein Akku leer ist, kann sich der Roboter nicht mehr bewegen.
-Es gibt Ersatzbatterien auf dem Spielfeld mit unterschiedlichen Ladungen.
-Wenn der Roboter auf ein Feld mit einer Ersatzbatterie kommt, \textbf{muss} dieser die Batterie mit der eigenen tauschen.
-Die Aufgabe ist nun, fur ein Konstellation von Roboter und Ersatzbatterien, herauszufinden ob es moglich ist durch Bewegen des Roboters die \textbf{Ladestande} aller Batterien(Ersatzbatterien plus Roboters Batterie) auf \textbf{null} zu bringen und durch welche Schrittabfolge des Roboters dies moglich ist.
-\textit{\textcite{bwinfSpielfeld}}
+Die Aufgabenstellung befindet sich im Anhang(siehe \ref{sec:aufgabenstellung} auf Seite \pageref{sec:aufgabenstellung}).\textit{\textcite{bwinfSpielfeld}}
 \subsubsection{Losungsidee}
 Da das Ziel ist, den Ladestand aller Batterien auf 0 zu bringen, muss der Roboter sich zu den anderen Batterien bewegen.
 Der einzige Weg, um die Ladung einer Batterie auf 0 zu bekommen, ist, indem man zu der Batterie geht und dann die Ladung der Batterie zu verbrauchen.
@@ -194,40 +185,46 @@ Von diesen Batterien kann der Roboter wieder zu mehreren anderen Batterien laufe
 Auserdem ergibt es manchmal Sinn nicht den \textbf{kurzesten Weg} zu einer anderen Batterie zu gehen.
 Manchmal ergibt es auch Sinn einen langeren Weg zu laufen. Dabei kann man fast alle Wege um eine \textbf{gerade Zahl verlangern} indem man hin und her lauft. Man kann kann einen Weg aber nicht um eine ungerade Zahl verlangern.
 Wenn man einen Weg vom Roboter zu einer Ersatz-Batterie finden will, dann sind alle anderen Ersatz-Batterien Hindernisse, welche nicht begehbar sind.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{shortest_w.pdf}
-    \caption{Kurzester Weg vom Roboter zu einer Ersatz-Batterie}
-    \label{fig:kurzester_weg}
-\end{figure}
-\par
-In Abbildung \ref{fig:kurzester_weg} sieht man den kurzesten Weg vom Roboter zur Ersatz-Batterie mit der Ladung 2. Der kurzeste Weg ist mit der gelben Verfarbung gekennzeichnet. Der Roboter kann nicht den direkten Weg gehen, da die Ersatz-Batterien 5 und 3 den Weg versperren.
-
-
+\captionsetup[figure]{name=Abb.}
+\begin{wrapfigure}{l}{0.25\textwidth}
+\vspace{-10pt}
+    \includegraphics[width=0.25\textwidth]{shortest_w.pdf}
+    \vspace{-25pt}
+    \caption{Kürzester-Weg}
+    \label{fig:weg}
+\vspace{-30pt}
+\end{wrapfigure}
+\captionsetup[figure]{name=Abbildung}
+In Abbildung \ref{fig:weg}  sieht man den kurzesten Weg vom Roboter zur Ersatz-Batterie mit der Ladung 2. Der kurzeste Weg ist mit der gelben Verfarbung gekennzeichnet. Der Roboter kann nicht den direkten Weg gehen, da die Ersatz-Batterien 5 und 3 den Weg versperren.
 
 \paragraph{Weg Verlangern}
 
+
+In Abbildung \ref{fig:weg_verlangern} wird gezeigt, wie ein Weg verlangert werden kann. Die Zahlen zeigen, wann der Roboter dieses Feld besucht. In diesem Beispiel ist der kurzeste Weg 3 Schritte lang, wurde aber zu 5 Schritte verlangert. Der Weg kann auch weiter verlangert werden, indem noch ofter hin und her gelaufen wird.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{weg_verlaengern_n.pdf}
+    \includegraphics[height=0.09\textheight]{weg_verlaengern_n.pdf}
     \caption{Weg Verlangern}
     \label{fig:weg_verlangern}
 \end{figure}
-In Abbildung \ref{fig:weg_verlangern} wird gezeigt, wie ein Weg verlangert werden kann. Die Zahlen zeigen, wann der Roboter dieses Feld besucht. In diesem Beispiel ist der kurzeste Weg 3 Schritte lang, wurde aber zu 5 Schritte verlangert. Der Weg kann auch weiter verlangert werden, indem noch ofter hin und her gelaufen wird.
-
 \par
-Die \textbf{Kurzesten Wege} vom Roboter zu den anderen Batterien werden durch \textbf{Breiten Suche} \cite{cormen} herausgefunden, dies ist \textbf{A-Stern} \cite{hart} vorzuziehen, da A-Stern nur den Weg von einem Knoten zu einem anderen berechnet, die Breiten Suche findet bei einer Durchfuhrung den kurzesten Weg zu allen anderen Knoten. \textbf{Djikstra} \cite{dijkstra} ist auch ein Algorithmus um den kurzesten Weg zu finden und findet auch nach einer Durchfuhrung den kurzesten Weg zu allen Knoten. \textbf{Breiten Suche} ist trotzdem die beste Wahl, da \textbf{Breiten} Suche die \textbf{Zeitkomplexitat}, $E$ = Kanten $V$ = Knoten $O(E + V)$ und \textbf{Djikstra} $O(V * log(V) + E)$ (wenn Djikstra mit Fibonacci-Heap verwendet wird). Somit ist die \textbf{Breiten Suche schneller als Djikstra}.
+Die \textbf{Kürzesten Wege} vom Roboter zu den anderen Batterien werden durch \textbf{Breiten Suche} \cite{cormen} herausgefunden, dies ist \textbf{A-Stern} \cite{hart} vorzuziehen, da A-Stern nur den Weg von einem Knoten zu einem anderen berechnet, die Breiten Suche findet bei einer Durchfuhrung den kurzesten Weg zu allen anderen Knoten. \textbf{Djikstra} \cite{dijkstra} ist auch ein Algorithmus um den kurzesten Weg zu finden und findet auch nach einer Durchfuhrung den kurzesten Weg zu allen Knoten. \textbf{Breiten Suche} ist trotzdem die beste Wahl, da \textbf{Breiten} Suche die \textbf{Zeitkomplexitat}, $E$ = Kanten $V$ = Knoten $O(E + V)$ und \textbf{Djikstra} $O(V * log(V) + E)$ (wenn Djikstra mit Fibonacci-Heap verwendet wird). Somit ist die \textbf{Breiten Suche schneller als Djikstra}.
 
 \paragraph{Der Graph}
-Man kann das Spielfeld in einen Graphen umwandeln. Die Spielfelder sind die Knoten.
-Es handelt sich um einen ungerichteten, ungewichteten Graphen, alle Konten sind in beide Richtungen begehbar und haben das Gewicht 1.
-Wenn man versucht den kurzesten Weg vom Roboter zu einer Batterie zu finden, sind alle anderen Batterien Hindernisse, da man eine Batterie aufnehmen muss, wenn man auf ihr Feld geht. Deswegen sind im erzeugten Graph alle Felder mit Batterien, auser der Ziel-Batterie, nicht begehbar.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{graph_stromrallye.pdf}
+\captionsetup[figure]{name=Abb.}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \includegraphics[width=0.3\textwidth]{graph_stromrallye.pdf}
     \caption{Das Stromrallye Spiel als Graph}
     \label{fig:graph_stromrallye}
-\end{figure}
+    \vspace{-5pt}
+\end{wrapfigure}
+\captionsetup[figure]{name=Abbildung}
+Man kann das Spielfeld in einen Graphen umwandeln. Die Spielfelder sind die Knoten.
+
+
+Es handelt sich um einen ungerichteten, ungewichteten Graphen, alle Konten sind in beide Richtungen begehbar und haben das Gewicht 1.
+Wenn man versucht den kurzesten Weg vom Roboter zu einer Batterie zu finden, sind alle anderen Batterien Hindernisse, da man eine Batterie aufnehmen muss, wenn man auf ihr Feld geht. Deswegen sind im erzeugten Graph alle Felder mit Batterien, auser der Ziel-Batterie, nicht begehbar.
+
 In Abbildung \ref{fig:graph_stromrallye}, sind die Ersatzbatterien mit grau gekennzeichnet, der Roboter mit grun.
 Dies ist zum besseren Verstandnis.
 In unserem Graphen, wird nicht gespeichert wie gros die Ladung der Ersatzbatterien ist, dies ist in der Grafik nur fur besseres Verstandnis so dargestellt.
@@ -235,6 +232,11 @@ Der Graph speichert, aber ob ein Feld (dies entspricht im Graphen einem Knoten) 
 
 \newpage
 \subsubsection{Erklarung Graph}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \includegraphics[width=0.5\textwidth]{graph.pdf}
+    \caption{Ein Graph \textcite{wikipediaGraph}}
+    \label{fig:graph}
+\end{wrapfigure}
 Ein Graph ist eine Datenstruktur.
 Ein Graph besteht aus Knoten und Kanten.
 Die Knoten sind mit Kanten miteinander verbunden.
@@ -242,17 +244,12 @@ Es gibt gerichtet und ungerichtete Graphen.
 In gerichteten Graphen haben Kanten eine Richtung, in ungerichteten nicht.
 Man kann von einem Knoten uber eine Kante zu einem anderen Knoten kommen usw..
 In einem gewichteten Graphen haben Kanten zusatzlich ein Gewicht. Dies bedeutet, das ein bestimmtes Gewicht(oder Kosten) verwendet wird um von dem einen Knoten zum anderen zu kommen.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{graph.pdf}
-    \caption{Ein Graph \textcite{wikipediaGraph}}
-    \label{fig:graph}
-\end{figure}
+
 
 Beispielsweise in einem U-Bahn Netz sind Stationen die Knoten. Die Kanten sind U-bahn-Strecken, die Kosten der Kanten geben an, wie lange es braucht um mit der U-bahn diese Strecke zu fahren.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{u-bahn.pdf}
+    \includegraphics[width=0.5\textwidth]{u-bahn.pdf}
     \caption{Wiener U-bahn Netz \textcite{wikipediaUbahn}}
     \label{fig:u-bahn-netz}
 \end{figure}
@@ -260,22 +257,42 @@ Beispielsweise in einem U-Bahn Netz sind Stationen die Knoten. Die Kanten sind U
 
 
 \subsubsection{Breiten Suche}
+
+
 Bei der Breiten Suche startet man vom Startknoten und uberpruft dann alle Kinder, bzw. Nachbarn des Startknotens, ob sie der Zielknoten (oder eines der Zielknoten) sind.
 Dies wird veranschaulicht in der Abbildung .
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.4\textwidth]{Stromrallye_Feld_BFS.pdf}
-    \caption{Schaubild des Spielfelds mit Breiten Suche berechnete kurzeste Wege. grun: 1 Schritt, gelb: 2 Schritte -> \textcite{bwinfSpielfeld}}
-    \label{fig:bfs_stromrallye}
-\end{figure}
 Dies wird nun fur jeden Knoten rekursiv durchgefuhrt.
 In einem Set (Erklarung in Kapitel \ref{sec:HashSet}) wird gespeichert welche Knoten bereits besucht worden sind und deswegen nicht nochmal besucht werden mussen.
+\par
 Der Algorithmus terminiert wenn entweder Wege zu allen Zielknoten gefunden wurden oder alle Felder besucht wurden(es kann sein, dass es zu einem Zielknoten gar keinen Weg gibt).
 
 Die Breiten Suche funktioniert nur in einem Graph ohne Kanten Kosten, bzw. alle Kanten Kosten mussen gleich sein. In unserem Fall ist diese Bedingung gegeben, deswegen konnen wir die Breiten Suche verwenden um den kurzesten Weg zu finden.
 In unserem Graph hat jede Kante den Kosten 1, dar der Roboter eine Energieladung verbraucht wenn dieser einen Schritt lauft.
 \par
 In unserem Fall kann die breiten Suche auch bereits dann abgeschlossen werden, wenn alle Felder in der Reichweite des Roboters besucht wurden.
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \includegraphics[width=0.3\textwidth]{Stromrallye_Feld_BFS.pdf}
+    \caption{Spielfeld}
+    \label{fig:bfs_stromrallye}
+    \vspace{-20pt}
+\end{wrapfigure}
+\paragraph{In Abbildung \ref{fig:bfs_stromrallye}}
+ sieht man eine durchgeführte breiten Suche für das Stromrallye Spiel. Es werden die kürzesten Wege zu allen Feldern berechnet. Der kürzeste Weg zu einem Feld wird in der Abbildung, wie auch im Programm, gefunden indem man vom Ziel-Feld, zum Start geht und zwar so das die Farbe der abgelaufenen Felder sich von rot->leuchtrot->dunkel orange -> orange -> gelb -> grün verändert.
+\setlength{\itemsep}{-60pt}
+\\
+Die Anzahl der Schritte zu einem Feld sind:
+\small
+\begin{compactitem}
+\item 1 Schritt: grün
+\item 2 Schritte: gelb
+\item 3 Schritte: orange
+\item 4 Schritte: dunkel orange
+\item 5 Schritte: Leuchtrot
+\item 6 Schritte: Rot
+\end{compactitem}
+\tiny{ \url{https://www.ralfarbpalette.de/ral-classic/ral-3024-leuchtrot}}  , \tiny{\url{https://www.99colors.net/color-names}}
+\normalsize
 \subsubsection{Djikstra}
 Der Djikstra Algorithmus funktioniert an sich ahnlich der Breiten Suche. Zusatzlich sortiert der Djikstra Algorithmus die Knoten nach Kosten und besucht den Knoten zuerst zu dem ein Weg mit geringsten Kosten gefunden wurde.
 \\
@@ -816,7 +833,14 @@ Vom ersten Knoten werden neue Knoten zu allen Nachbar Knoten gefunden, von diese
 
 \section{Fazit}
 \section{Anhang}
-\subsectio{Bundeswettbewerb Informatik Aufgaben}
+\subsection{Offizielle Aufgaben Beschreibung des BWinf}
+%\begin{figure}[h!]
+%    \centering
+%    \caption{Schaubild des Spielfelds mit Breiten Suche berechnete kurzeste Wege. grun: 1 Schritt, gelb: 2 Schritte -> \textcite{bwinfSpielfeld}}
+%    \label{fig:bfs_stromrallye}
+%\end{figure}
+\label{sec:aufgabenstellung}
+\includepdf[pages={4,6}]{aufgaben382.pdf}
 
 
 
