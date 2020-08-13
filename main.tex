@@ -16,8 +16,10 @@
 \usepackage{caption}
 \usepackage{listings}
 \usepackage{pdfpages}
+
 %% quellen
 \usepackage[defernumbers=true,style=numeric,sorting=ynt]{biblatex}
+\usepackage{amssymb}
 
 %\usepackage{biblatex}
 %% in name.bib sind die Quellen
@@ -34,7 +36,7 @@
 \onehalfspacing
 
 %%---------- Der Pfad der Grafiken
-\graphicspath{ {./images/pdfs/} }
+\graphicspath{{./images/}}
 
 
 
@@ -199,13 +201,22 @@ In Abbildung \ref{fig:weg}  sieht man den kürzesten Weg vom Roboter zur Ersatz-
 \paragraph{Weg Verlängern}
 
 
-In Abbildung \ref{fig:weg_verlangern} wird gezeigt, wie ein Weg verlängert werden kann. Die Zahlen zeigen, wann der Roboter dieses Feld besucht. In diesem Beispiel ist der kürzeste Weg 3 Schritte lang, wurde aber auf 5 Schritte verlängert. Der Weg kann auch weiter verlängert werden, indem noch öfter hin und her gelaufen wird.
+In Abbildung \ref{fig:weg_verlangern} wird gezeigt, wie ein Weg verlängert werden kann.
+\paragraph{Stromrallye Darstellungsform}
+Die kleinen Zahlen im oberen Bereich der Spielfelder zeigen die Lösungsschritte.
+Eine Zahl $x$ bedeutet, dass dieses Spielfeld beim $x$ten Schritt vom Roboter besucht wird.
+Felder, welche keine Zahlen haben, werden nie besucht.
+\\
 \begin{figure}[h]
     \centering
     \includegraphics[height=0.09\textheight]{weg_verlaengern_n.pdf}
     \caption{Weg Verlangern}
     \label{fig:weg_verlangern}
 \end{figure}
+Diese Darstellungsform habe ich gewählt, da diese noch bei sehr komplexen Spielen leicht verständlich ist und diese von einem Programm einfach generierbar sind.
+
+In diesem Beispiel ist der kürzeste Weg 3 Schritte lang, wurde aber auf 5 Schritte verlängert. Der Weg kann auch weiter verlängert werden, indem noch öfter hin und her gelaufen wird.
+
 \par
 Die \textbf{Kürzesten Wege} vom Roboter zu den anderen Batterien werden durch \textbf{Breiten Suche} \cite{cormen} herausgefunden, dies ist \textbf{A-Stern} \cite{hart} vorzuziehen, da A-Stern nur den Weg von einem Knoten zu einem anderen berechnet, die Breiten Suche findet bei einer Durchführung den kürzesten Weg zu allen anderen Knoten. Auch der \textbf{Djikstra} \cite{dijkstra} Algorithmus findet nach einer Durchführung den kürzesten Weg zu allen Knoten. \textbf{Breiten Suche} ist trotzdem die beste Wahl, da \textbf{Breiten} Suche die \textbf{Zeitkomplexität}, $E$ = Kanten $V$ = Knoten $O(E + V)$ und \textbf{Djikstra} $O(V * log(V) + E)$ (wenn Djikstra mit Fibonacci-Heap verwendet wird) hat. Somit ist die \textbf{Breiten Suche schneller als Djikstra}.
 
@@ -352,13 +363,11 @@ Wenn alle Batterie-Ladungen 0 sind, nur der Roboter noch Ladung hat, muss dieser
 Der \textbf{Roboter} kann von einer Position mit einem bestimmten Ladestand unterschiedliche Ersatzbatterien erreichen. Nachdem der Roboter zu einer dieser Ersatzbatterien gelaufen ist, kann dieser von dort wieder zu verschiedenen Ersatzbatterien laufen.
 \par
 Wie bereits beschrieben, kann es aber auch Sinn machen, dass der Roboter nicht den kürzesten Weg zu einer Ersatzbatterie geht. Da ein Weg immer um eine gerade Zahl verlängert werden kann, müssen diese Möglichkeiten auch durchgegangen werden.
-Also wenn der kürzeste Weg $w$ lang ist und der Roboter $b$
+Also wenn der kürzeste Weg $w$ lang ist und der Roboter $b$ Batterieladung hat. Die Reihe $a$ beinhaltet, alle möglichen Weglängen.
 \\
-x(1) = w \\
-x(n) = x(n-1) + 2  {w + 2n < b}\\
-Batterieladung hat, dann sind $(a(n)  = min(w + 2n, b))$ $n >= 0$ mögliche Weglängen.
-So gibt es vom Roboter zu einer Ersatzbatterie $(b - w) / 2$ mögliche Weglängen.
-\\
+\[  a_1 = w \]
+
+\[ a_{n+1} = x_{n} + 2  \{n \in \mathbb{N} | w + 2n < b\} \]
 Zum Beispiel:
 Wenn der Roboter mindestens 5 Schritte zu einer Batterie braucht und gerade 9 Ladung hat, dann sind 5, 7, 9 mögliche Anzahl Schritte um zur Batterie zu kommen.
 \\
@@ -419,18 +428,19 @@ Der worst-case für meinen Algorithmus ist, dass sich auf jedem Feld des Spielfe
 Die 4, weil es 4 Richtungen gibt, in welche sich der Roboter bewegen kann.
 \par
 Die Zeit für das Berechnen der kürzesten Wege fällt bei Spielen mit vielen Batterien nicht so stark ins Gewicht.\par
-Die Breiten Suche braucht $O(e * (E + V))$, $e$ Anzahl Ersatzbatterien, $E$ Edges, $V$ gleich Vertices. Jeder Knoten hat maximal 4 Kanten (bzw. Nachbarn), also $O(E) = O(V)$, $O(e * (E+V)) = O(e * V)$. In unserem worst-case Szenario, beschrieben im vorherigen Absatz, entspricht die Anzahl der Knoten, der Anzahl an Feldern, also $e=s*s$; $s$ für size ist die Größe des Spielfelds.
+Die Breiten Suche braucht $O(b * (E + V))$, $e$ Anzahl Ersatzbatterien, $E$ Edges, $V$ gleich Vertices. Jeder Knoten hat maximal 4 Kanten (bzw. Nachbarn), also $O(E) = O(V)$, $O(b * (E+V)) = O(b * V)$. In unserem worst-case Szenario, beschrieben im vorherigen Absatz, entspricht die Anzahl der Knoten, der Anzahl an Feldern, also $b=s*s$; $s$ für size ist die Größe des Spielfelds.
 $V$ wiederum entspricht ebenfalls $s*s$. Daher kommen wir insgesamt auf $O(s*s*s*s)$,
-also $O(s^4)$. Da $e$ = $s * s$. Können wir auch sagen $O(e^2)$. Also ist die Laufzeit der Breiten Suche quadratisch zur Anzahl Batterien.
+also $O(s^4)$. Da $b$ = $s * s$. Können wir auch sagen $O(b^2)$. Also ist die Laufzeit der Breiten Suche quadratisch zur Anzahl Batterien.
 Die Laufzeit für den Möglichkeiten-Baum ist wesentlich größer.
-Sie ist $O(4^(s*s))$ oder $O(4^e)$.
-Beide Laufzeiten addiert: $O(4^e) + O(e^2)$ = $O(4^e)$
+Sie ist $O(4^{(s*s)})$ oder $O(4^b)$.
+Beide Laufzeiten addiert: $O(4^b) + O(b^2)$ = $O(4^b)$
+\par
 \textbf{Die insgesamte worst-case Laufzeit ist:}
-\begin{itemize}
-\item In Abhängigkeit der Anzahl Batterien($e$) => \texttt{$O(4^e)$}
-\item In Abhängigkeit der Größe des Spielfelds($s$) => \texttt{$O(4^(s*s))$}
-\item In Abhängigkeit der Größe< des Spielfelds($L$) => \texttt{$O(4^L)$}
-\end{itemize}
+\begin{compactitem}
+\item In Abhängigkeit der Anzahl Batterien($b$) => \texttt{$O(4^e)$}
+\item In Abhängigkeit der Größe des Spielfelds($s$) => \texttt{$O(4^{(s*s)})$}
+\item In Abhängigkeit der gesamten Ladung(L)($L$) => \texttt{$O(4^L)$}
+\end{compactitem}
 \subsubsection{Umsetzung}
 Der Algorithmus wird in Python (Version 3.7) implementiert.
 
@@ -446,9 +456,8 @@ Der Algorithmus wird in Python (Version 3.7) implementiert.
 \newpage
 
 \newpage
-\subsubsection{Losungen}
-
-
+\subsubsection{Lösungen}
+\begin{wrapfigure}{l}{0.15\textwidth}
 Eingabe:
 \texttt{ \\
 5 \\
@@ -458,33 +467,27 @@ Eingabe:
 1,2,2 \\
 5,4,3 \\
 }
-\par
-Erklärung:
-
+\end{wrapfigure}
+\normalsize
 Die Dateien enthalten jeweils ein Spielbrett mit den darauf verteilten Batterien und dem Roboter.
-
-In der ersten Zeile ist Grö?e des Spielbretts angegeben, in der zweiten Zeile sind die Koordinaten des Roboters und die Ladung seiner Batterie und in der dritten Zeile ist die Anzahl der restlichen auf dem Spielbrett verteilten Batterien angegeben.
+In der ersten Zeile ist Größe des Spielbretts angegeben, in der zweiten Zeile sind die Koordinaten des Roboters und die Ladung seiner Batterie und in der dritten Zeile ist die Anzahl der restlichen auf dem Spielbrett verteilten Batterien angegeben.
 Ab der vierten Zeile ist in jeder Zeile eine Batterie angegeben, also ihre Koordinaten und ihre Ladung.
-Dabei sind die Angaben zu den Koordinaten und der Ladung der Batterien und des Roboters als drei kommagetrennte Werte in der Form "x,y,ladung" geschrieben.
-\textcite{bwinfMaterial}.
+Dabei sind die Angaben zu den Koordinaten und der Ladung der Batterien und des Roboters als drei kommagetrennte Werte in der Form "x,y,ladung" geschrieben. \textcite{bwinfMaterial}.
 
-\begin{wrapfigure}{l}{0.4\textwidth}    
+\begin{wrapfigure}{l}{0.42\textwidth} 
+    \vspace{-10pt}
     \includegraphics[width=0.4\textwidth]{Solution.pdf}
     \caption{Die Lösung des Stromrallye-Spiels}
-    \label{fig:loesung1} 
+    \label{fig:loesung1}
+    \vspace{-35pt}
 \end{wrapfigure}
 
 In Abbildung \ref{fig:loesung1} sieht man die Lösung des BWinf Stromrallye Spiels. Die Zahl 9 mit dem grünen Kreis drumherum ist der Roboter, mit der Ladung 9.
 Die Ersatzbatterien, sind die Fett gedruckten Zahlen in der Mitte der Felder, die Zahl zeigt die Ladung der Ersatzbatterien, beim Start an.
 Die Ladung des Roboters und der Ersatzbatterien verändert sich während des Spiels, deswegen ist dies bloß eine Momentaufnahme beim Start des Spiels.
-Die kleinen Zahlen im oberen Bereich der Spielfelder zeigen die Lösungsschritte.
-Eine Zahl $x$ bedeutet, dass dieses Spielfeld beim $x$ten Schritt vom Roboter besucht wird.
-Felder, welche keine Zahlen haben, werden nie besucht.
 \\
-Diese Darstellungsform habe ich gewählt, da diese noch bei sehr komplexen Spielen leicht verständlich ist und diese von einem Programm einfach generierbar sind.
-\par
 Weitere Lösungen befinden sich im Anhang.
-
+\\
 \subsection{Aufgabe 1 Teil 2}
 \subsubsection{Beschreibung}
 Bei Teil 2 der Aufgabe 1 soll man selbst Stromrallye Spiele erstellen, welche lösbar sind, aber für einen Menschen schwer zu lösen.
@@ -503,17 +506,7 @@ Das Spiel wird mit mehr Batterien deutlich schwerer zu lösen, auch ein größer
 \end{figure}
 \newpage
 \subsection{Umsetzung}
-Die Implementierung ist wie in Aufgabe 1 Teil 1 in Python. Aus dem Grund, dass ich den Algorithmus aus Teil 1 nutze, habe ich nur eine Klasse benötigt und zwar \textbf{PlayingFieldGenerator}
-\paragraph{PlayingFieldGenerator}
-\addDescription{Die PlayingFieldGenerator- Klasse ist die einzige Klasse, des 2.Teils. Diese erzeugt ein zufälliges, lösbares Stromrallye Spiel}
-\begin{classAttributes}
-\addAttribute{-}{playing\_-field\_builder}{PlayingFieldBuilder}{baut das Spielfeld}
-\addAttribute{-}{positions\_used}{HashSet[Position]}{Speichert alle Positionen an welchen bereits ein Objekt ist, damit nicht zwei Objekte an einem Ort sind. Das HashSet eignet sich dafür, da es nur $O(1)$ Zeit benötigt.}
-\end{classAttributes}
-
-\begin{classMethods}
-\addMethod{+}{create\_-solveable\_-playing\_field}{PlayingField}{Die Methode erzeugt ein lösbares Spielfeld}
-\end{classMethods}
+Die Informationen zur Umsetzung befinden sich im Anhang.
 
 \subsection{Aufgabe 3}
 \subsubsection{Aufgabenstellung}
@@ -553,11 +546,9 @@ Es gibt von A nach D, die möglichen Wege A -> B -> D und A -> C -> D.
 Um alle möglichen Wege zu finden. Verwende ich die Tiefen Suche, von jedem mit Tiefen Suche gefundenen Knoten wird wieder tiefen Suche ausgeführt.
 Wenn man auf einen Knoten stößt, welcher das Ziel ist oder schon besucht wurde wird abgebrochen.
 \newpage
-\par
-Algorithmus:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.4\textwidth]{PAP_find_path.pdf}
+    \includegraphics[width=0.9\textwidth]{images/pap_find_path_v4.png}
     \caption{Programmablaufplan um den besten Weg zu finden}
     \label{fig:pap3}
 \end{figure}
@@ -568,28 +559,22 @@ Wenn man vom Knoten $k$ zum Knoten $k'$ geht und beide eine Position im 2-dimens
 Dann bewegt man sich in Richtung $kp'-kp$ wenn man sich von  $k$ zu $k'$ bewegt. Also bewegt man sich in Richtung des Richtungsvektors $r$. Wenn man nun von $k'$ zu $k''$ geht, in Richtung $r'$.
 Ist dies ein Abbiegen, wenn $r != r'$.
 Durch diese Definition ist auch denkbar, die Aufgabe für ein Straßennetz durchzuführen in welchem, es kompliziertere Kreuzungen gibt.
-\begin{figure}[h!]
+\begin{wrapfigure}{l}{0.5\textwidth}
     \centering
-    \includegraphics[width=0.6\textwidth]{AbbiegenBWinf.png}
+    \includegraphics[width=0.5\textwidth]{AbbiegenBWinf.png}
     \caption{}
     \label{fig:abbiegen}
-\end{figure}
+\end{wrapfigure}
 
 
 Die $visited_nodes$ \ref{fig:pap3}, sind ein unsortiertes HashSet (Erklärung in Kapitel \ref{sec:HashSet}) , da dieses konstante Zeit braucht um ein Element zu suchen(herauszufinden ob es existiert) und um ein Element hinzuzufügen.
 Dieses speichert keine Duplikate, was auch perfekt für uns passt, da jeder Knoten nur maximal einmal besucht werden soll.
 \par
 Daraufhin sortiere ich alle Wege nach der Lange des Weges. So können mit binäre Suche sehr schnell alle Wege gefunden werden, welche kurz genug sind. Nun bestimme ich mit linearer Suche, den Weg mit den wenigsten Abkürzungen.
+
+
 \subsubsection{HashSet}\label{sec:HashSet}
 Ein HashSet speichert eine Menge an Daten. Dabei hat es die besondere Eigenschaft, dass es keine Duplikate speichert, jedes Element ist entweder einmal oder keinmal drinnen.
-
-Zur Implementierung wird intern ein Array gespeichert. für jedes neu eingefugt Element, wird in das Array, an der Stelle des Hashwertes  $True$ eingetragen.
-Der Hashwert eines Elements wird mit Hilfe einer Hashfunktion ermittelt.
-
-Um zu prufen ob ein Element im HashSet ist, wird die gleiche Hashfunktion wie beim eintragen verwendet. Nun wird nachgeschaut, ob an dieser Stelle True oder False. Wenn True, dann ist dieses Element enthalten, wenn False dann nicht. Um ein lLement zu löschen, wird der Wert im Array auf False gesetzt.
-
-Auf Grund dieser Implementierung, ist das HashSet unsortiert.
-
 Der Vorteil gegenüber einer Liste besteht darin, dass es nur $O(1)$ Zeit benötigt um zu prüfen ob ein Element enthalten ist, sowie $O(1)$, um ein Element hinzuzufügen.
 
 \subsubsection{Besten Pfade speichern}
@@ -602,38 +587,8 @@ Eine HashMap speichert key-value Paare.
 Man kann für einen Schlüssel(key) einen entsprechenden Wert finden.
 Neue Key value Paare können in die HashMap einzutragen.
 
-Die HashMap Implementierung, funktioniert folgendermasen. Es wird ein Array erzeugt.
-Nun wird für einen neu eingefugten Key Value Paar. Der Hashwert des Keys mit einer Hashfunktion ermittelt, am entsprechenden Index des Hashwertes, wird nun der Value eingetragen.
-
 Um in einer Hashmap um für einen Schlüssel einen Wert zu finden wird nur konstante Zeit benötigt, genauso wie ein Wert-Schlüssel Paar einzufügen.
 
-
-\subsubsection{Zielführenden Pfade zuerst}
-In einer Priority Queue (Binary Heap), die zielführendsten Pfade speichern, die am nähesten am Ziel dran sind, bis jetzt den Weg mit den wenigsten Abbiegungen haben.
-Aus dieser Priority Queue immer das nächste Element hinaus nehmen und für dieses die Wege zu den Nachbarn updaten. Neu gefundene Pfade in die Priority Queue einfugen.
-
-\subsubsection{Priority Queue Binary Heap}
-In einer Priority QUeue wird eine Menge an Elementen gespeichert. Dabei wird für jedes Element auch eine Priorität gespeichert.
-Die Piority Queue, besitzt die Funktion, das Element mit der geringsten oder maximalen Priorität zurück zugeben. Je nachdem, ob es eine Min-Heap oder Max-Heap ist.
-für Priority Queues, gibt es verschiedene Implementierungen. Unter Anderem auch die Linked-List, aber dabei ist die Performance nicht sonderbar gut. Da es O(n) Zeit braucht um das kleinste Element zu finden.
-\textcite{skienaPriorityQueue}
-
-Die Implementierung, welche ich gewählt habe ist die Binary Heap, da in diese sehr schnell neue Elemente eingefugt werden und auch das kleinste Element gefunden werden kann.
-
-\subsubsection{Binary Heap}
-Die Binary Heap, ist ein Binary Tree, mit ein paar Beschränkungen.
-Also jeder Knoten hat bis zu 2 Kind Knoten.
-Anders als beim Tree, ist bei der Heap, der Eltern Knoten immer kleiner als die Kind Knoten.
-Neue Knoten werden in der tiefsten Ebene möglichst weit links eingefugt.
-
-
-\subsubsection{Frühzeitiges Abbrechen}
-Abbrechen, wenn der Ziel-Knoten, einer der Nachbar-Knoten ist. Dann macht es nur Sinn den Ziel-Knoten zu besuchen.
-
-\subsubsection{Besten Weg speichern}
-Wenn ein Weg schlechter ist, als der beste Weg zum Ziel, bzw. wenn der beste Weg, welcher von einem Knoten zum Ziel gefunden werden kann, schlechter ist als der bis jetzt beste Weg zum Ziel-Knoten, dann braucht man diesen Knoten nicht weiter zu verfolgen, sondern kann diesen löschen.
-
- 
 \subsubsection{Analyse}
 Vom ersten Knoten werden neue Knoten zu allen Nachbar Knoten gefunden, von diesen wieder zu den Nachbar Knoten, ein Knoten wird aber nur besucht wenn ein besserer Knoten zu ihm gefunden wurde. Da die besseren Knoten durch die Priority Queue zuerst besucht werden und diese dann für Knoten schnell sehr gute Wege finden. Werden viele Knoten nicht oft besucht werden. Ein Knoten kann bessere Wege zu den Nachbarn finden, diese können den Knoten nicht nochmal besuchen, da sie an diesem schon waren.
 
@@ -833,9 +788,22 @@ Der Graph speichert alle Knoten in einer Liste.}
 \end{classMethods}
 \end{classInformation}
 
+\subsection{Umsetzung Aufgbabe 1 b)}
+Die Implementierung ist wie in Aufgabe 1 Teil 1 in Python. Aus dem Grund, dass ich den Algorithmus aus Teil 1 nutze, habe ich nur eine Klasse benötigt und zwar \textbf{PlayingFieldGenerator}
+\paragraph{PlayingFieldGenerator}
+\addDescription{Die PlayingFieldGenerator- Klasse ist die einzige Klasse, des 2.Teils. Diese erzeugt ein zufälliges, lösbares Stromrallye Spiel}
+\begin{classAttributes}
+\addAttribute{-}{playing\_-field\_builder}{Playing-Field-Builder}{baut das Spielfeld}
+\addAttribute{-}{positions\_-used}{HashSet-[Position]}{Speichert alle Positionen an welchen bereits ein Objekt ist, damit nicht zwei Objekte an einem Ort sind. Das HashSet eignet sich dafür, da es nur $O(1)$ Zeit benötigt.}
+\end{classAttributes}
+
+\begin{classMethods}
+\addMethod{+}{create\_-solveable\_-playing\_field}{PlayingField}{Die Methode erzeugt ein lösbares Spielfeld}
+\end{classMethods}
 
 \subsection{Beispiel3}
 \subsubsection{Eingabe}
+\tiny{
 \texttt{ \\
 14 \\
 3,5,9 \\
@@ -844,6 +812,8 @@ Der Graph speichert alle Knoten in einer Liste.}
 5,12,10 \\
 6,2,5 \\
 }
+}
+\normalsize
 \subsubsection{Lösung}
 \begin{figure}[h]
     \centering
