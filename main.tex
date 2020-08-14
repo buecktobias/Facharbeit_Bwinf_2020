@@ -11,6 +11,7 @@
 
 %---------------------  packages
 \usepackage{pgffor}
+\usepackage{hyperref} 
 \usepackage{mathtools}
 \usepackage{paralist}
 \usepackage{caption}
@@ -36,7 +37,7 @@
 \onehalfspacing
 
 %%---------- Der Pfad der Grafiken
-\graphicspath{{./images/}}
+\graphicspath{{./important_images/}}
 
 
 
@@ -164,28 +165,25 @@ Sichtbarkeit & Methoden & Ruckgabe-Typ & Erklarung \\ [0.5ex]
 \end{titlepage}
 
 \begin{abstract}
-Diese Arbeit handelt von der Bearbeitung des Bundeswettbewerb Informatik 38. Dabei werden Graphentheorie, Algorithmen und Datenstrukturen zur Lösung komplexer Probleme genutzt. In der ersten Aufgabe wird ein Computer-Programm entwickelt, welches das Brettspiel Stromrallye löst. Bei der 2. Aufgabe geht es darum in einem Straßennetz den Weg zu finden, der sehr schnell ist, aber auch wenige Abbiegungen beinhaltet.
+Diese Arbeit handelt von der Bearbeitung des Bundeswettbewerb Informatik 38. Dabei werden Graphentheorie, Algorithmen und Datenstrukturen zur Lösung komplexer Probleme genutzt. In der ersten Aufgabe wird ein Computer-Programm entwickelt, welches das Brettspiel Stromrallye löst. Bei der 2. Aufgabe geht es darum in einem Straßennetz den Weg zu finden, der am schnellsten ist, aber auch wenige Abbiegungen beinhaltet. \cite{bwinfSpielfeld}
 \end{abstract}
 \section{Inhaltsverzeichnis}
 \tableofcontents
 \section{Einleitung}
-Beim Bundeswettbewerb Informatik 38 habe ich mich für die Bearbeitung der Aufgaben 1 und 3 entschieden, da mir diese am interessantesten erscheinen. Der Bundeswettbewerb Informatik ist ein Wettbewerb für junge Programmierer aus Deutschland. Der Wettkampf findet in Runden statt, bei dieser Arbeit geht es um die Bearbeitung der 2. Runde.
+Beim Bundeswettbewerb Informatik 38 habe ich mich für die Bearbeitung der Aufgaben 1 und 3 entschieden, da mir diese am interessantesten erschienen. Der Bundeswettbewerb Informatik ist ein Wettbewerb für junge Programmierer aus Deutschland. Der Wettkampf findet in Runden statt, bei dieser Arbeit geht es um die Bearbeitung der 2. Runde.
 \\
-In der 2.Runde werden 2 von 3 möglichen Aufgaben gelöst. Die Aufgaben sind häufig etwas kniffeliger zu lösen und das Programmieren zum Lösen der Aufgaben spielt auch eine Rolle.\\
-Die ausführliche Dokumentation der Aufgaben ist beim BWinf (Bundeswettbewerb Informatik) essentiell wichtig, um in die nächste Runde zu kommen.
+In der 2. Runde werden 2 von 3 möglichen Aufgaben gelöst. Die Aufgaben sind häufig etwas kniffeliger zu lösen und das Programmieren zum Lösen der Aufgaben spielt auch eine entscheidende Rolle.\\
+Die ausführliche Dokumentation der Aufgaben ist beim BWinf (Bundeswettbewerb Informatik) essentiell wichtig, um in die nächste Runde zu kommen.\cite{bundesWettbewerbInformatik}
 \section{Hauptteil}
-\newpage
 \subsection{Aufgabe 1}
 \subsubsection{Aufgabenstellung}
-Die Aufgabenstellung befindet sich im Anhang (siehe \ref{sec:aufgabenstellung} auf Seite \pageref{sec:aufgabenstellung}).\textit{\textcite{bwinfSpielfeld}}
+Die Aufgabenstellung befindet sich im Anhang (siehe Kapitel\ref{sec:aufgabenstellung} auf Seite \pageref{sec:aufgabenstellung}).\textit{\textcite{bwinfSpielfeld}}
 \subsubsection{Lösungsidee}
-Damit das Ziel erreicht werden kann, die Ladung aller Batterien zu verbrauchen, muss der Roboter sich zu den Batterien bewegen.
-Zu jeder Batterie mit einem positiven Ladestand muss der Roboter bewegt werden.Dabei gibt es aber mehrere Batterien, zu denen der Roboter gehen kann.Von diesen Batterien kann der Roboter wieder zu mehreren anderen Batterien laufen.
+Damit das Ziel, die Ladung aller Batterien zu verbrauchen, erreicht werden kann muss der Roboter sich zu den Batterien bewegen.
+Zu jeder Batterie mit einem positiven Ladestand muss der Roboter bewegt werden. Dabei gibt es aber mehrere Batterien, zu denen der Roboter gehen kann. Von diesen Batterien kann der Roboter wieder zu weiteren Batterien laufen.
 \par
 \subsubsection{Kürzester Weg}
-Manchmal ist es sinnvoll nicht den \textbf{kürzesten Weg} zu einer anderen Batterie zu gehen.
-Es kann auch vorteilhaft sein einen längeren Weg zu laufen. Dabei kann man fast alle Wege um eine \textbf{gerade Zahl verlängern} indem man hin und her läuft, eine Verlängerung um eine ungerade Zahl ist dagegen unmöglich.
-Wenn man einen Weg vom Roboter zu einer Ersatz-Batterie finden will, dann sind alle anderen Ersatz-Batterien Hindernisse, welche nicht begehbar sind.
+
 \captionsetup[figure]{name=Abb.}
 \begin{wrapfigure}{l}{0.25\textwidth}
 \vspace{-10pt}
@@ -193,10 +191,18 @@ Wenn man einen Weg vom Roboter zu einer Ersatz-Batterie finden will, dann sind a
     \vspace{-25pt}
     \caption{Kürzester-Weg}
     \label{fig:weg}
-\vspace{-30pt}
+\vspace{-20pt}
 \end{wrapfigure}
 \captionsetup[figure]{name=Abbildung}
 In Abbildung \ref{fig:weg}  sieht man den kürzesten Weg vom Roboter zur Ersatz-Batterie mit der Ladung 2. Der kürzeste Weg ist gelb gekennzeichnet. Der Roboter kann nicht den direkten Weg gehen, da die Ersatz-Batterien 5 und 3 den Weg versperren.
+
+Manchmal ist es sinnvoll nicht den \textbf{kürzesten Weg} zu einer anderen Batterie zu gehen.
+Es kann auch vorteilhaft sein einen längeren Weg zu laufen. Dabei kann man fast alle Wege um eine \textbf{gerade Zahl verlängern}, indem man hin und her läuft, eine Verlängerung um eine ungerade Zahl ist im Umkehrschluss dagegen unmöglich.
+Wenn man einen Weg vom Roboter zu einer Ersatz-Batterie finden will, dann sind alle anderen Ersatz-Batterien Hindernisse, welche nicht begehbar sind.
+
+
+
+
 
 \paragraph{Weg Verlängern}
 
@@ -213,12 +219,11 @@ Felder, welche keine Zahlen haben, werden nie besucht.
     \caption{Weg Verlangern}
     \label{fig:weg_verlangern}
 \end{figure}
-Diese Darstellungsform habe ich gewählt, da diese noch bei sehr komplexen Spielen leicht verständlich ist und diese von einem Programm einfach generierbar sind.
-
+Diese Darstellungsform habe ich gewählt, da diese noch bei sehr komplexen Spielen leicht verständlich ist und es einfach war, ein Programm zu schreiben, welches diese generiert.
 In diesem Beispiel ist der kürzeste Weg 3 Schritte lang, wurde aber auf 5 Schritte verlängert. Der Weg kann auch weiter verlängert werden, indem noch öfter hin und her gelaufen wird.
 
 \par
-Die \textbf{Kürzesten Wege} vom Roboter zu den anderen Batterien werden durch \textbf{Breiten Suche} \cite{cormen} herausgefunden, dies ist \textbf{A-Stern} \cite{hart} vorzuziehen, da A-Stern nur den Weg von einem Knoten zu einem anderen berechnet, die Breiten Suche findet bei einer Durchführung den kürzesten Weg zu allen anderen Knoten. Auch der \textbf{Djikstra} \cite{dijkstra} Algorithmus findet nach einer Durchführung den kürzesten Weg zu allen Knoten. \textbf{Breiten Suche} ist trotzdem die beste Wahl, da \textbf{Breiten} Suche die \textbf{Zeitkomplexität}, $E$ = Kanten $V$ = Knoten $O(E + V)$ und \textbf{Djikstra} $O(V * log(V) + E)$ (wenn Djikstra mit Fibonacci-Heap verwendet wird) hat. Somit ist die \textbf{Breiten Suche schneller als Djikstra}.
+Die \textbf{Kürzesten Wege} vom Roboter zu den anderen Batterien werden durch die \textbf{Breiten Suche} \cite{cormenBFS} herausgefunden, dies ist \textbf{A-Stern} \cite{hart} vorzuziehen, da dem Algorithmus A-Stern nur den Weg von einem Knoten zu einem anderen berechnet, die Breiten Suche findet bei einer Durchführung den kürzesten Weg zu allen anderen Knoten. Auch der \textbf{Djikstra} \cite{dijkstra} Algorithmus findet nach einer Durchführung den kürzesten Weg zu allen Knoten. \textbf{Breiten Suche} ist trotzdem die beste Wahl, da \textbf{Breiten Suche} die \textbf{Zeitkomplexität}, $E$ = Kanten; $V$ = Knoten $O(E + V)$ und \textbf{Djikstra} $O(V * log(V) + E)$ (wenn Djikstra mit Fibonacci-Heap verwendet wird) hat. Somit ist die \textbf{Breiten Suche schneller als Djikstra}.
 
 \paragraph{Der Graph}
 \captionsetup[figure]{name=Abb.}
@@ -229,31 +234,31 @@ Die \textbf{Kürzesten Wege} vom Roboter zu den anderen Batterien werden durch \
     \vspace{-5pt}
 \end{wrapfigure}
 \captionsetup[figure]{name=Abbildung}
-Man kann das Spielfeld in einen Graphen umwandeln. Die Spielfelder sind die Knoten.
+Man kann das Spielfeld in einen Graphen umwandeln, dabei sind die Spielfelder die Knoten.
 
 
 Es handelt sich um einen ungerichteten, ungewichteten Graphen, alle Konten sind in beide Richtungen begehbar und haben das Gewicht 1.
+
 Wenn man versucht den kürzesten Weg vom Roboter zu einer Batterie zu finden, sind alle anderen Batterien Hindernisse, da man eine Batterie aufnehmen muss, wenn man auf ihr Feld geht. Deswegen sind im erzeugten Graph alle Felder mit Batterien, außer der Ziel-Batterie, nicht begehbar.
 
-In Abbildung \ref{fig:graph_stromrallye}, sind zum besseren Verständnis die Ersatzbatterien in grau gekennzeichnet, der Roboter in grün.
+In Abbildung \ref{fig:graph_stromrallye} sind zum besseren Verständnis die Ersatzbatterien in grau gekennzeichnet, der Roboter in grün.
 
-In unserem Graphen, wird nicht gespeichert, wie groß die Ladung der Ersatzbatterien ist, dies ist in der Grafik nur für besseres Verständnis so dargestellt.
+In unserem Graphen, wird nicht gespeichert, wie groß die Ladung der Ersatzbatterien ist, dies ist in der Grafik nur für ein besseres Verständnis so dargestellt.
 Der Graph speichert aber, ob ein Feld (dies entspricht im Graphen einem Knoten) begehbar ist. Ersatzbatterien sind nicht begehbar, wenn man den Weg zu einer anderen Batterie finden will.
 
-\newpage
 \subsubsection{Erklärung Graph}
 \begin{wrapfigure}{r}{0.5\textwidth}
     \includegraphics[width=0.5\textwidth]{graph.pdf}
     \caption{Ein Graph \textcite{wikipediaGraph}}
     \label{fig:graph}
 \end{wrapfigure}
-Ein Graph ist eine Datenstruktur und besteht aus Knoten und Kanten, wobei die Knoten  mit den Kanten verbunden sind.
+Ein Graph ist eine Datenstruktur und besteht aus Knoten und Kanten, wobei die Knoten  mit den Kanten verbunden sind (\textit{\textcite{biggs1986graph})}.
 Es werden gerichtete und ungerichtete Graphen unterschieden.
 In gerichteten Graphen haben Kanten eine Richtung, in ungerichteten nicht.
 Man kann von einem Knoten über eine Kante zu einem anderen Knoten kommen usw..
-In einem gewichteten Graphen haben Kanten zusätzlich ein Gewicht. Dies bedeutet, das ein bestimmtes Gewicht (oder Kosten) verwendet wird um von dem einen Knoten zum anderen zu kommen.
+In einem gewichteten Graphen haben Kanten zusätzlich ein Gewicht. Dies bedeutet, das ein bestimmtes Gewicht (oder Kosten) verwendet wird, um von dem einen Knoten zum anderen zu kommen.\cite{west1996introduction}
 
-Beispielsweise in einem U-Bahn Netz sind Stationen die Knoten. Die Kanten sind U-Bahn-Strecken, die Kosten der Kanten geben die Fahrtdauer der Strecken an..
+Beispielsweise in einem U-Bahn Netz stehen die Stationen für die Knoten. Die Kanten sind U-Bahn-Strecken und die Kosten der Kanten geben die Fahrtdauer der Strecken an.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{u-bahn.pdf}
@@ -268,15 +273,15 @@ Beispielsweise in einem U-Bahn Netz sind Stationen die Knoten. Die Kanten sind U
 
 Bei der Breiten Suche startet man vom Startknoten und überprüft dann alle Kinder, bzw. Nachbarn des Startknotens, ob sie der Zielknoten (oder eines der Zielknoten) sind.
 Dies wird veranschaulicht in der Abbildung .
-Dies wird nun für jeden Knoten rekursiv durchgeführt.
-In einem Set (Erklärung in Kapitel \ref{sec:HashSet}) wird gespeichert, welche Knoten bereits besucht worden sind und deswegen nicht nochmal besucht werden müssen.
+Es folgt eine rekursive Durchführung für jeden Knoten.
+In einem Set (Erklärung in Kapitel \ref{sec:HashSet}) wird gespeichert, welche Knoten bereits besucht worden sind und deswegen nicht nochmal besucht werden müssen.\cite{cormenBFS}
 \par
-Der Algorithmus terminiert, wenn entweder Wege zu allen Zielknoten gefunden wurden oder alle Felder besucht wurden (es kann sein, dass es zu einem Zielknoten gar keinen Weg gibt).
+Der Algorithmus terminiert, wenn entweder Wege zu allen Zielknoten gefunden oder alle Felder besucht worden sind (es kann sein, dass es zu einem Zielknoten gar keinen Weg gibt).
 
-Die Breiten Suche funktioniert nur in einem Graph ohne Kanten Kosten, bzw. alle Kanten Kosten müssen gleich sein. In unserem Fall ist diese Bedingung gegeben, deswegen können wir die Breiten Suche verwenden um den kürzesten Weg zu finden.
+Die Breiten Suche funktioniert nur in einem Graph ohne Kanten Kosten, bzw. alle Kanten Kosten müssen gleich sein. In unserem Fall ist diese Bedingung gegeben, deswegen können wir die Breiten Suche verwenden, um den kürzesten Weg zu finden.
 In unserem Graph hat jede Kante den Kosten 1, da der Roboter bei jedem Schritt eine Energieladung verbraucht.
 \par
-In unserem Fall kann die breiten Suche auch bereits dann abgeschlossen werden, wenn alle Felder in der Reichweite des Roboters besucht wurden.
+In unserem Fall kann die Breiten Suche auch bereits dann abgeschlossen werden, wenn alle Felder in der Reichweite des Roboters besucht wurden.
 
 \begin{wrapfigure}{r}{0.3\textwidth}
     \includegraphics[width=0.3\textwidth]{Stromrallye_Feld_BFS.pdf}
@@ -301,7 +306,7 @@ Die Anzahl der Schritte zu einem Feld sind:
 \tiny{ \url{https://www.ralfarbpalette.de/ral-classic/ral-3024-leuchtrot}}  , \tiny{\url{https://www.99colors.net/color-names}}
 \normalsize
 \subsubsection{Djikstra}
-Der Djikstra Algorithmus funktioniert ähnlich wie die Breiten Suche. Zusätzlich sortiert der Djikstra Algorithmus die Knoten nach Kosten und besucht zuerst den Knoten, zu dem ein Weg mit geringsten Kosten gefunden wurde.
+Der Djikstra Algorithmus funktioniert ähnlich wie die Breiten Suche. Zusätzlich sortiert der Djikstra Algorithmus die Knoten nach Kosten und besucht zuerst den Knoten, zu dem ein Weg mit geringsten Kosten gefunden wurde. \cite{dijkstra}
 \\
 Dies bringt in unserem Fall nichts, da alle Knoten die gleichen Kosten haben und zwar 1.  Das Sortieren der Knoten macht allerdings den Djikstra Algorithmus langsamer  als die Breiten Suche.
 \subsubsection{A-Stern}
@@ -310,7 +315,7 @@ In unserem Fall wäre so eine Heuristik, wie weit der Knoten vom Zielknoten entf
 Im A Stern Algorithmus werden dann Knoten, die näher am Zielknoten sind, zuerst besucht.
 Dies macht den A Stern Algorithmus deutlich schneller als Djikstra und Breiten Suche.
 Die Breiten Suche kann man durch die Verwendung einer Heuristik nochmal stark verbessern.
-Da die Wahrscheinlichkeit, dass der schnellste Weg in der Richtung des Zielorts liegt, viel höher ist, wird dies bei  A Stern clever genutzt, um den Algorithmus wesentlich schneller zu machen.
+Da die Wahrscheinlichkeit, dass der schnellste Weg in der Richtung des Zielorts liegt, viel höher ist, wird dies bei  A Stern clever genutzt, um den Algorithmus wesentlich schneller zu machen. \cite{hart}
 
 \subsubsection{Kürzester Weg-Fazit}
 
@@ -327,53 +332,45 @@ Damit die Breiten Suche nicht immer wieder neu ausgeführt wird, speichern wir u
 Der kürzeste Weg wird immer vom Roboter zu den Ersatzbatterien berechnet und er wird nur dann berechnet, wenn der Roboter auf einer Ersatzbatterie steht oder bei der Startposition.
 Es gibt so viele Zielorte wie die \textbf{Anzahl-Ersatzbatterien}, außer wenn der Roboter sich beim Start schon auf einer Ersatzbatterie befindet, dann einer weniger.
 Also wenn e die Anzahl der Ersatzbatterien ist, dann werden maximal
-\begin{align*}
-    \sum_{n=0}^{e} n
-\end{align*}
-
-viele Wege berechnet.
+   \(\sum_{n=0}^{e} n\)  viele Wege berechnet.
 Bei der Ausführung von Breiten Suche werden direkt von einem Start Wege zu allen Zielen gefunden. Deswegen muss die Breiten Suche maximal $e-1$ oft ausgeführt werden. Da die Breiten Suche $O(E+V)$ lange dauert, kommen wir so auf eine worst-case Laufzeitkomplexität von $O(e * (E + V))$.
-
-\subsubsection{Der Weg zu sich selbst}
+\subsubsection{Sonderfälle}
+\captionsetup[figure]{name=Abb.}
 \begin{wrapfigure}{r}{0.3\textwidth}
-    \centering
+    \vspace{-30pt}
     \includegraphics[width=0.3\textwidth]{way_to_self.pdf}
     \caption{Weg zu sich selbst}
     \label{fig:way_to_self}
+    \vspace{-40pt}
 \end{wrapfigure}
-
+\captionsetup[figure]{name=Abbildung}
 Von einer Ersatzbatterie kann es auch Sinn machen wieder zu sich selbst zu laufen, wobei der Weg zu sich selbst immer 2 Schritte lang ist. Es kann aber auch sein, dass es keinen Weg zu sich selbst gibt.
-
-\newpage
-
-\subsubsection{Der Weg ins Nichts}
 \captionsetup[figure]{name=Abb.}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.4\textwidth]{way_ins_nothing.pdf}
+\begin{wrapfigure}{l}{0.3\textwidth}
+    \vspace{-20pt}
+    \includegraphics[width=0.3\textwidth]{way_ins_nothing.pdf}
     \caption{Weg ins nichts! Benutzung der ganzen Batterie-Ladung}
     \label{fig:way_to_nothing}
-\end{figure}
+    \vspace{-20pt}
+\end{wrapfigure}
 \captionsetup[figure]{name=Abbildung}
 
 Wenn alle Batterie-Ladungen 0 sind, nur der Roboter noch Ladung hat, muss dieser seine Ladung verlieren, indem er weitere Schritte läuft. Es kann aber vorkommen, dass dies nicht funktioniert, da alle Wege von anderen Batterien versperrt sind. Deswegen muss dies überprüft werden.
 
-\subsubsection{Ersatzbatterien}
+\subsubsection{Wege zu Ersatzbatterien}
 
 Der \textbf{Roboter} kann von einer Position mit einem bestimmten Ladestand unterschiedliche Ersatzbatterien erreichen. Nachdem der Roboter zu einer dieser Ersatzbatterien gelaufen ist, kann dieser von dort wieder zu verschiedenen Ersatzbatterien laufen.
 \par
 Wie bereits beschrieben, kann es aber auch Sinn machen, dass der Roboter nicht den kürzesten Weg zu einer Ersatzbatterie geht. Da ein Weg immer um eine gerade Zahl verlängert werden kann, müssen diese Möglichkeiten auch durchgegangen werden.
 Also wenn der kürzeste Weg $w$ lang ist und der Roboter $b$ Batterieladung hat. Die Reihe $a$ beinhaltet, alle möglichen Weglängen.
-\\
 \[  a_1 = w \]
-
 \[ a_{n+1} = x_{n} + 2  \{n \in \mathbb{N} | w + 2n < b\} \]
-Zum Beispiel:
+\paragraph{Zum Beispiel:}
 Wenn der Roboter mindestens 5 Schritte zu einer Batterie braucht und gerade 9 Ladung hat, dann sind 5, 7, 9 mögliche Anzahl Schritte um zur Batterie zu kommen.
 \\
 Der kürzeste Weg ist 5 Schritte lang und der Roboter hat die Batterie-Ladung 9. Da der Weg um eine gerade Zahl verlängert werden kann, sind auch 7 und 9 möglich.
 
-\subsubsection{Möglichkeiten}
+\subsubsection{Speicherung der Möglichkeiten}
 
 Diese \textbf{Möglichkeiten} des Roboters werden in einem \textbf{Baum} gespeichert.
 Dabei werden in den \textbf{Knoten} der Spielstand (Position und Ladestand der Ersatzbatterien und des Roboters) und in den \textbf{Kanten} die Schritte und Anzahl an Schritten, welche der Roboter laufen muss, um den Spielstand $a$ zu Spielstand $b$ zu verändern, angegeben.
@@ -383,25 +380,27 @@ Um von Spielstand $a$ zu Spielstand $b$ zu kommen, muss der Roboter eine Schritt
 Der Lösungsspielstand, besteht aus einem leeren Roboter und leeren Batterien.
 
 \par
-\subsubsection{Baum}
+\subsubsection{Erklärung - Baum}
 Ein Baum ist eine Art von Graph in welchem ein Knoten Kinder hat. Diese Kinder sind untereinander nicht verbunden.
 Knoten haben immer nur einen Eltern-Knoten. Der Eltern-Knoten muss eine Ebene oben drüber sein. Die Kinder eines Knotens sind immer eine Ebene unten drunter.
 
 
-\subsubsection{Möglichkeiten-Baum}
+\subsubsection{Lösung finden}
 Um nun herauszufinden, ob es eine Lösung gibt und welche diese ist, wird der Weg mit der größten Anzahl an Schritten gesucht. Wenn die Anzahl der Schritte der Summe der Batterieladungen (der Ersatzbatterien und des Roboters) entspricht, ist dies eine korrekte Lösung um den Ladestand aller Batterien auf 0 zu bringen.
 Abbildung:
+%% TODO mit grün markiert!!!
 Lösung mit grün markiert
-    RU : Batterie rechts unten auf dem Spiel
-    RO: Batterie rechts oben auf dem Spiel
-    LO: Batterie links oben
-    RS: Roboters Startposition
-\par
+\begin{itemize}
+    \item RU : Batterie rechts unten auf dem Spiel
+    \item RO: Batterie rechts oben auf dem Spiel
+    \item LO: Batterie links oben
+    \item RS: Roboters Startposition
+\end{itemize}
 \newpage
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[width=0.6\textwidth]{rotated_baum_yeah.jpg}
+    \includegraphics[height=0.9\textheight]{rotated_baum_v10.jpg}
     \caption{Schaubild des Moglichkeiten-Baums
     }
     \label{fig:moeglichkeiten_baum}
@@ -488,12 +487,12 @@ Die Ladung des Roboters und der Ersatzbatterien verändert sich während des Spi
 \\
 Weitere Lösungen befinden sich im Anhang.
 \\
-\subsection{Aufgabe 1 Teil 2}
+\subsection{Aufgabe 1 b)}
 \subsubsection{Beschreibung}
-Bei Teil 2 der Aufgabe 1 soll man selbst Stromrallye Spiele erstellen, welche lösbar sind, aber für einen Menschen schwer zu lösen.
+Bei Teil b) der Aufgabe 1 soll man selbst Stromrallye Spiele erstellen, welche lösbar sind, aber für einen Menschen schwer zu lösen.
 (Siehe die Aufgabenstellung \ref{sec:aufgabenstellung} auf Seite\pageref{sec:aufgabenstellung})
 \subsubsection{Lösungsidee}
-Es werden zufällig Spielfelder generiert und dann mit dem Programm aus Aufgabe 1 geprüft, ob diese lösbar sind. Dabei werden an zufälligen Positionen Ersatz-Batterien mit einer zufälligen Ladung platziert. Die Position und die Ladung, des Roboters wird auch zufällig gewählt.
+Es werden zufällig Spielfelder generiert und dann mit dem Programm aus Aufgabe 1 a) geprüft, ob diese lösbar sind. Dabei werden an zufälligen Positionen Ersatz-Batterien mit einer zufälligen Ladung platziert. Die Position und die Ladung, des Roboters wird auch zufällig gewählt.
 Die Größe des Spielfeld ist ebenfalls zufällig.
 \subsubsection{Schwierigkeit des Spiels}
 Das Spiel wird mit mehr Batterien deutlich schwerer zu lösen, auch ein größeres Spielfeld  macht es schwieriger.
@@ -504,8 +503,7 @@ Das Spiel wird mit mehr Batterien deutlich schwerer zu lösen, auch ein größer
     \caption{Ein generisiertes Strom-Rallye Spiel}
     \label{fig:loesung2}
 \end{figure}
-\newpage
-\subsection{Umsetzung}
+\subsubsection{Umsetzung}
 Die Informationen zur Umsetzung befinden sich im Anhang.
 
 \subsection{Aufgabe 3}
@@ -513,89 +511,75 @@ Die Informationen zur Umsetzung befinden sich im Anhang.
 Siehe im Anhang \ref{sec:aufgabenstellung} auf der Seite \pageref{sec:aufgabenstellung}.
 
 \subsubsection{Lösungsidee}
-Als erstes wandele ich das Straßennetz in einen Graphen um.
-Dabei wird eine Kreuzung zu einem Knoten in dem erstellten Graphen.
-Eine Straße wird zu einer Kante in dem Graphen.
-Die Länge des Weges werden die Kosten der Kante.
-
-
+\captionsetup[figure]{name=Abb.}
 %%% da muss noch viel gemacht werden!!!
-\begin{wrapfigure}{r}{200pt}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \vspace{-20pt}
     \includegraphics[width=0.3\textwidth]{aufgabe3.pdf}
     \caption{Straßennetz, rot ist der Weg mit den wenigsten Abkürzungen}
     \label{fig:abbiegen}
 \end{wrapfigure}
+\captionsetup[figure]{name=Abbildung}
+Zunächst wandele ich das Straßennetz in einen Graphen um. Dabei werden
+Straßenkreuzungen zu Knoten,  Straßen zu  Kanten und die Weglängen zu Kosten der Kanten.
 
 \par
-Dann finde ich in diesem Graphen alle möglichen Wege vom Start zum Ziel.
-Nur Wege ohne Zyklen, also nur Wege welche einen Knoten maximal 1 mal besuchen. Da Wege welche einen Knoten mehrmals besuchen, langer sein müssen.
-Es macht nie Sinn für Bilal einen Knoten doppelt zu besuchen.
-Außerdem wurde es sonst unendliche viele mögliche Wege geben, was es unlösbar machen wurde.
+Dann finde ich in diesem Graphen alle möglichen Wege vom Start zum Ziel, allerdings nur Wege ohne Zyklen, also Wege, welche einen Knoten maximal 1 mal besuchen, da alle anderen Wege länger sind.Außerdem würde es sonst unendliche viele mögliche Wege geben, was die Aufgabe unlösbar machen würde.
 
 \begin{wrapfigure}{l}{0.3\textwidth}
     \centering
     \includegraphics[width=0.3\textwidth]{small_example_graph.pdf}
     \caption{Graph}
     \label{fig:abbiegen}
+    \vspace{-30pt}
 \end{wrapfigure}
 \par
 Es gibt von A nach D, die möglichen Wege A -> B -> D und A -> C -> D.
 
-
 \par
-Um alle möglichen Wege zu finden. Verwende ich die Tiefen Suche, von jedem mit Tiefen Suche gefundenen Knoten wird wieder tiefen Suche ausgeführt.
-Wenn man auf einen Knoten stößt, welcher das Ziel ist oder schon besucht wurde wird abgebrochen.
+Um alle möglichen Wege zu finden, verwende ich die Tiefen Suche. Wenn man auf einen Knoten stößt, welcher das Ziel ist oder schon besucht wurde, wird abgebrochen.
+\paragraph{Problem} Dieser Algorithmus braucht sehr lange, weil er alle Wege, die es in einem Graphen gibt, durch geht. An jeder Kreuzung gibt es  maximal 8 Straßen, da es Straßen nach oben, unten, rechts, links und diagonale  gibt.
+Dies führt zu einer sehr schlechten worst-case Laufzeit von $O(8^V)$, V = Anzahl Kanten.
+\paragraph{Verbesserung}
+Die besten Pfade zu jedem Knoten (Kreuzung) werden in einer HashMap gespeichert. Am Anfang kennen wir nur den Weg zum Startknoten. Nun aktualisieren wir für alle Nachbarn des Startknotens die Map Einträge, dann von diesen Nachbarn wieder und so weiter.
+Ein Knoten wird nur "betrachtet", wenn ein besserer Weg zu ihm gefunden wurde, also einer, der weniger Abbiegungen hat oder kürzer ist. So werden viel weniger Wege durchsucht.
 \newpage
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/pap_find_path_v4.png}
+    \includegraphics[width=0.9\textwidth]{pap_find_path_v4.png}
     \caption{Programmablaufplan um den besten Weg zu finden}
     \label{fig:pap3}
 \end{figure}
 
-\newpage
-\subsubsection{Abbiegungen finden}
-Wenn man vom Knoten $k$ zum Knoten $k'$ geht und beide eine Position im 2-dimensionalen Raum haben, $kp$ und $kp'$, respektiv.
-Dann bewegt man sich in Richtung $kp'-kp$ wenn man sich von  $k$ zu $k'$ bewegt. Also bewegt man sich in Richtung des Richtungsvektors $r$. Wenn man nun von $k'$ zu $k''$ geht, in Richtung $r'$.
-Ist dies ein Abbiegen, wenn $r != r'$.
-Durch diese Definition ist auch denkbar, die Aufgabe für ein Straßennetz durchzuführen in welchem, es kompliziertere Kreuzungen gibt.
-\begin{wrapfigure}{l}{0.5\textwidth}
+\subsubsection{Abbiegungen bestimmen}
+
+\begin{wrapfigure}{l}{0.4\textwidth}
     \centering
-    \includegraphics[width=0.5\textwidth]{AbbiegenBWinf.png}
+    \includegraphics[width=0.4\textwidth]{AbbiegenBWinf.png}
     \caption{}
     \label{fig:abbiegen}
+    \vspace{-30pt}
 \end{wrapfigure}
-
-
-Die $visited_nodes$ \ref{fig:pap3}, sind ein unsortiertes HashSet (Erklärung in Kapitel \ref{sec:HashSet}) , da dieses konstante Zeit braucht um ein Element zu suchen(herauszufinden ob es existiert) und um ein Element hinzuzufügen.
-Dieses speichert keine Duplikate, was auch perfekt für uns passt, da jeder Knoten nur maximal einmal besucht werden soll.
-\par
-Daraufhin sortiere ich alle Wege nach der Lange des Weges. So können mit binäre Suche sehr schnell alle Wege gefunden werden, welche kurz genug sind. Nun bestimme ich mit linearer Suche, den Weg mit den wenigsten Abkürzungen.
-
+Wenn man vom Knoten $k1$  zum Knoten $k2$ geht und beide eine Position $kp1$ und $kp2$ im 2-dimensionalen Raum haben, dann bewegt man sich in Richtung $r$ -> $r = kp2-kp1$ wenn man sich von  $k1$ zu $k2$  bewegt. Ebenso wenn man von $k2$ zu $k3$ geht, in Richtung $r'$-> $r' =kp3-kp2$. 
+Wenn der Einheitsvektor $r^{0}$ von $r$ und der Einheitsvektor $r'^{0}$ von $r'$ ungleich sind handelt es sich um eine Abbiegung.
+Wenn die Gleichung $r^0 \ne r'^0$ wahr ist, handelt es sich um eine Abbiegung.\\
+Durch diese Definition lässt sich die Aufgabe auch für ein Straßennetz mit komplizierteren Kreuzungen durchführen.
 
 \subsubsection{HashSet}\label{sec:HashSet}
-Ein HashSet speichert eine Menge an Daten. Dabei hat es die besondere Eigenschaft, dass es keine Duplikate speichert, jedes Element ist entweder einmal oder keinmal drinnen.
-Der Vorteil gegenüber einer Liste besteht darin, dass es nur $O(1)$ Zeit benötigt um zu prüfen ob ein Element enthalten ist, sowie $O(1)$, um ein Element hinzuzufügen.
+Ein HashSet speichert eine Menge an Daten. Dabei hat es die besondere Eigenschaft, dass es keine Duplikate speichert, jedes Element ist entweder einmal oder kein mal enthalten.
+Der Vorteil gegenüber einer Liste besteht darin, dass es nur $O(1)$ Zeit benötigt um zu prüfen, ob ein Element enthalten ist, sowie $O(1)$, um ein Element hinzuzufügen.
+\cite{drohandata}
 
-\subsubsection{Besten Pfade speichern}
-Speichern der besten Pfade zu jedem Knoten(Kreuzung) in einer HashMap.
-Am Anfang, kennen wir nur den Weg zum Startknoten.
-Nun updaten wir für alle Nachbarn des Startknoten die Map Eintrage. Dann von diesen Nacharn wieder ... und so weiter.
-Ein Knoten wird nur "betrachtet", wenn ein besserer Weg zu ihm gefunden wurde. So das er weniger Abbiegungen hat oder schneller ist.
 \subsubsection{HashMap}
-Eine HashMap speichert key-value Paare.
-Man kann für einen Schlüssel(key) einen entsprechenden Wert finden.
-Neue Key value Paare können in die HashMap einzutragen.
-
-Um in einer Hashmap um für einen Schlüssel einen Wert zu finden wird nur konstante Zeit benötigt, genauso wie ein Wert-Schlüssel Paar einzufügen.
-
-\subsubsection{Analyse}
-Vom ersten Knoten werden neue Knoten zu allen Nachbar Knoten gefunden, von diesen wieder zu den Nachbar Knoten, ein Knoten wird aber nur besucht wenn ein besserer Knoten zu ihm gefunden wurde. Da die besseren Knoten durch die Priority Queue zuerst besucht werden und diese dann für Knoten schnell sehr gute Wege finden. Werden viele Knoten nicht oft besucht werden. Ein Knoten kann bessere Wege zu den Nachbarn finden, diese können den Knoten nicht nochmal besuchen, da sie an diesem schon waren.
+Eine HashMap speichert key-value Paare, (auch HashTable genannt). Man kann für einen Schlüssel(key) einen entsprechenden Wert finden. Neue Key value Paare können in die HashMap eingetragen werden.
+Um in einer Hashmap für einen Schlüssel einen Wert zu finden oder ein Wert-Schlüssel Paar einzufügen, wird nur konstante Zeit benötigt.
+\cite{hashMap}
 
 \section{Fazit}
+In die Bearbeitung der beiden Aufgaben habe ich viel Zeit investiert. Obwohl beide Aufgaben an sich sehr unterschiedlich waren, konnte ich für beide Aufgaben ähnliche Algorithmen verwenden. Für beide Aufgaben war die Graphen-Theorie sehr hilfreich. Aufgrund der Seitenbeschränkung in der Facharbeit habe ich mich entschieden, die erste Aufgabe detailliert zu dokumentieren, um die Komplexität und die Vielzahl an Entscheidungen und Überlegungen, die in der Lösung der Aufgabe stecken, zu verdeutlichen. Die 3. Aufgabe konnte ich  nicht im gleichen Umfang wie die erste erklären, aber natürlich sind auch hier weitere Lösungen möglich und ähnliche Überlegungen zur Laufzeitoptimierung wie bei der ersten Aufgabe zu berücksichtigen.  
 \section{Anhang}
-\subsection{Offizielle Aufgaben Beschreibung des BWinf}
-
+\subsection{Offizielle Aufgabenbeschreibung des BWinf}
+\cite{bwinfSpielfeld}
 %\begin{figure}[h!]
 %    \centering
 %    \caption{Schaubild des Spielfelds mit Breiten Suche berechnete kürzeste Wege. grün: 1 Schritt, gelb: 2 Schritte -> \textcite{bwinfSpielfeld}}
@@ -647,14 +631,6 @@ Mit der Funktion \textit{find\_solution} wird eine Lösung für das entsprechend
 Die \textit{solve()} Funktion, löst den Spielstand des Knotens (\textit{playing\_field}). Dabei ruft die \textit{solve} Funktion rekursiv, wieder solve für alle Kind-Knoten des Knotens auf (siehe Pseudocode).
 }
 \end{classMethods}
-\begin{pseudocode}
-SOLVE(NODE):
-    paths = getPathsToSpareBatteries()
-    for i=0 to paths.length:
-        newNode = Node()
-        NODE.addEdge(Edge(NODE, newNode, paths[i]))
-        SOLVE(newNode)
-\end{pseudocode}
 \end{classInformation}
 
 
@@ -707,7 +683,7 @@ Sie implementiert die gängigsten Vektor-Funktionen, darunter (plus, minus, Län
 \end{classAttributes}
 
 \begin{classMethods}
-\addMethod{+}{manhattan\_-distance(other\_position)}{int}{manhattan distanz zur anderen Position. Die Manhattan Distanz wird folgendermaßen berechnet, $|x1 - x2| + |y1 - y2|$.
+\addMethod{+}{manhattan\_-distance(other\_-position)}{int}{manhattan distanz zur anderen Position. Die Manhattan Distanz wird folgendermaßen berechnet, $|x1 - x2| + |y1 - y2|$.
 }
 \end{classMethods}
 
@@ -789,7 +765,7 @@ Der Graph speichert alle Knoten in einer Liste.}
 \end{classInformation}
 
 \subsection{Umsetzung Aufgbabe 1 b)}
-Die Implementierung ist wie in Aufgabe 1 Teil 1 in Python. Aus dem Grund, dass ich den Algorithmus aus Teil 1 nutze, habe ich nur eine Klasse benötigt und zwar \textbf{PlayingFieldGenerator}
+Die Implementierung ist wie in Aufgabe 1 Teil a) in Python. Aus dem Grund, dass ich den Algorithmus aus Teil 1 nutze, habe ich nur eine Klasse benötigt und zwar \textbf{PlayingFieldGenerator}
 \paragraph{PlayingFieldGenerator}
 \addDescription{Die PlayingFieldGenerator- Klasse ist die einzige Klasse, des 2.Teils. Diese erzeugt ein zufälliges, lösbares Stromrallye Spiel}
 \begin{classAttributes}
@@ -803,7 +779,6 @@ Die Implementierung ist wie in Aufgabe 1 Teil 1 in Python. Aus dem Grund, dass i
 
 \subsection{Beispiel3}
 \subsubsection{Eingabe}
-\tiny{
 \texttt{ \\
 14 \\
 3,5,9 \\
@@ -812,13 +787,12 @@ Die Implementierung ist wie in Aufgabe 1 Teil 1 in Python. Aus dem Grund, dass i
 5,12,10 \\
 6,2,5 \\
 }
-}
 \normalsize
 \subsubsection{Lösung}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{solution3.pdf}
-    \caption{Losung des BWinfs Stromrallye Spiels Beispiel 3}
+    \includegraphics[width=0.5\textwidth]{solution3.pdf}
+    \caption{Lösung des BWinfs Stromrallye Spiels Beispiel 3}
     \label{fig:loesung3}
 \end{figure}
 
@@ -829,22 +803,22 @@ Die Implementierung ist wie in Aufgabe 1 Teil 1 in Python. Aus dem Grund, dass i
 40,25,20 \\
 0 \\
 }
-\subsubsection{Losung}
+\subsubsection{Lösung}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{solution4.png}
-    \caption{Losung des BWinfs Stromrallye Spiels Beispiel 4}
+    \includegraphics[width=0.5\textwidth]{solution4.png}
+    \caption{Lösung des BWinfs Stromrallye Spiels Beispiel 4}
     \label{fig:loesung4}
 \end{figure}
 Da auf Grund der Größe wenig zu erkennen ist.
 Hier heran gezoomt.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{solution_4_zoomed.pdf}
-    \caption{Losung des BWinfs Stromrallye Spiels Beispiel 4 heran gezoomt}
+    \includegraphics[width=0.4\textwidth]{solution_4_zoomed.pdf}
+    \caption{Lösung des BWinfs Stromrallye Spiels Beispiel 4 heran gezoomt}
     \label{fig:loesung4_zoomed}
 \end{figure}
-
+\newpage
 
 \section{Quellen}
 
